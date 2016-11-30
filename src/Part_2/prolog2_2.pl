@@ -5,14 +5,14 @@
 %         ventana   silla     ventana     arriba
 %         centro              centro
 
-estadoInicial(puerta, suelo, ventana, arriba).
-estadoFinal(centro,silla,centro,abajo).
+estado(puerta, suelo, ventana, arriba).
+% estadoFinal(centro,silla,centro,abajo).
 
 % ----------OPERADORES----------
 
 % We have to (build a wall) finish this.
 
-bajarPlatanos(centro,silla,centro,arriba):- (centro,silla,centro,abajo)
-subeASilla(X,suelo,X,_):- (X,silla,X,_).
-empujarSilla(Y,suelo,Y,_):- (X,suelo,X,_), X\=Y .
-moverMono(X,suelo,_,_):- (Y,suelo,_,_), X\=Y .
+estado(centro,silla,centro,abajo):- estado(centro,silla,centro,arriba).
+estado(X,silla,X,arriba):- estado(X,suelo,X,arriba), (X=puerta;X=ventana;X=centro).
+estado(Y,suelo,Y,arriba):- estado(X,suelo,X,arriba), X\=Y , (Y=puerta;Y=ventana;Y=centro).
+estado(X,suelo,_,arriba):- estado(Y,suelo,_,arriba), X\=Y , (X=puerta;X=ventana;X=centro).
