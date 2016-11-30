@@ -8,12 +8,10 @@ transicion(e2,_,e4).
 transicion(e3,_,e1).
 transicion(e3,b,e4).
 
-
 aceptacadena([X|R]) :- inicio(I), transicion(I, X, Y), aceptacadenaactual(R, Y).
 aceptacadenaactual([X|[]], E) :- fin(F), transicion(E,X,F).
 aceptacadenaactual([X|R], E) :- transicion(E, X, Y), aceptacadenaactual(R, Y).
 
+aceptacadenalg(Arr,N):- length(Arr,N), aceptacadena(Arr).
 
-aceptacadenalg([],N):- N=0.
-aceptacadenalg([X|Tail],N):- aceptacadenalg(Tail,Prev), N=Prev+1.
-% Mirar esto a ver
+aceptacadenabet(Arr,N):- between(0,N,L), aceptacadenalg(Arr,L).

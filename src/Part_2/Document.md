@@ -63,7 +63,45 @@ false.
 Una posible implementación de dicha regla podría ser:
 
 ```prolog
+aceptacadenalg(Arr,N):- length(Arr,N), aceptacadena(Arr).
 ```
+
+La cual podremos llamar de la siguiente forma para obtener:
+
+```prolog
+?- aceptacadenalg(C,4).
+C = [a, a, a, b] ;
+C = [a, b, a, b] ;
+C = [b, a, a, b] ;
+C = [b, b, a, b] ;
+false.
+```
+
+###e) Implemente una regla que permita consultar las cadenas de longitud menor o igual que una dada que acepta el autómata. Nota: chequee el predicado predefinido between.
+
+Para obtener dicha regla podríamos añadir a nuestro archivo fuente lo siguiente:
+
+```prolog
+aceptacadenabet(Arr,N):- between(0,N,L), aceptacadenalg(Arr,L).
+```
+
+Obteniendo la siguiente salida para el comando mostrado:
+
+```prolog
+?- aceptacadenabet(C,4).
+C = [a, b] ;
+C = [a, a, b] ;
+C = [b, a, b] ;
+C = [a, a, a, b] ;
+C = [a, b, a, b] ;
+C = [b, a, a, b] ;
+C = [b, b, a, b] ;
+false.
+```
+
+##2. Implementación de un problema de búsqueda en un espacio de estados
+
+
 
 
 
