@@ -12,14 +12,14 @@
 estado_final(centro, silla, centro, abajo).
 transicion(bajar_platano,estado(centro,silla,centro,arriba),estado(centro,silla,centro,abajo)).
 transicion(subir_silla,estado(X,suelo,X,arriba),estado(X,silla,X,arriba)).
-transicion(mover_silla,estado(Y,suelo,Y,arriba),estado(X,suelo,X,arriba)):- X\=Y.
-transicion(mover_mono,estado(Y,suelo,_,arriba),estado(X,suelo,_,arriba)):-  X\=Y.
+transicion(mover_silla(Y,X),estado(Y,suelo,Y,arriba),estado(X,suelo,X,arriba)).
+transicion(mover_mono(Y,X),estado(Y,suelo,_,arriba),estado(X,suelo,_,arriba)).
 
 
 
 % ----------OPERADORES----------
-soluciona(estado(X,Y,Z,W)) :- estado_final(X,Y,Z,W).
-soluciona(EstadoIn) :- transicion(Movimiento,EstadoIn, EstadoOut), soluciona(EstadoOut).
+soluciona(estado(X,Y,Z,W),_) :- estado_final(X,Y,Z,W).
+soluciona(estado(Q,W,E,R),Operador) :- transicion(Operador,estado(Q,W,E,R), estado(A,S,D,F)),soluciona(estado(A,S,D,F),_).
 
 
 
