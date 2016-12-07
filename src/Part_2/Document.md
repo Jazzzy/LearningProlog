@@ -101,6 +101,30 @@ false.
 
 ##2. Implementación de un problema de búsqueda en un espacio de estados
 
+Finalmente, en este apartado realizaremos una búsqueda en un espacio de estados. La representación definirá una sala con un mono que quiere obtener unos plátanos coldados del techo para lo cual tendrá que coger una silla, moverla hacia el centro de la sala, subirse a ella y coger los plátanos. En los siguientes apartados definiremos los estados y operadores entre ellos para solucionar el problema.
+
+###¿Qué situaciones (o estados) podríamos identificar?
+
+Para representar los estados introduciremos unas reglas con la siguiente forma, siendo el estado inicial el mostrado al final de la siguiente porción de código:
+
+```prolog
+% Esta será la representación de los estados y sus posibles valores:
+% estado(LOC_MONO, ALT_MONO, LOC_SILLA, LOC_PLANATOS)
+%         puerta    suelo     puerta      abajo
+%         ventana   silla     ventana     arriba
+%         centro              centro
+
+% Este será el estado inicial:
+estado(puerta, suelo, ventana, arriba).
+
+% Y este el estado final que queremos alcanzar:
+% estado(centro,silla,centro,abajo).
+```
+
+
+
+
+
 
 
 
