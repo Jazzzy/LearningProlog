@@ -10,10 +10,10 @@
 estado_final(estado(centro, silla, centro, abajo)).
 
 % ---------TRANSICIONES---------
-transicion(bajar_platano,estado(centro,silla,centro,arriba),estado(centro,silla,centro,abajo)).
-transicion(subir_silla(X),estado(X,suelo,X,arriba),estado(X,silla,X,arriba)).
 transicion(mover_silla(X,Z),estado(X,suelo,X,arriba),estado(Z,suelo,Z,arriba)).
+transicion(subir_silla(X),estado(X,suelo,X,arriba),estado(X,silla,X,arriba)).
 transicion(mover_mono(X,Z),estado(X,suelo,Y,arriba),estado(Z,suelo,Y,arriba)).
+transicion(bajar_platano,estado(centro,silla,centro,arriba),estado(centro,silla,centro,abajo)).
 
 
 % ----------OPERADORES----------

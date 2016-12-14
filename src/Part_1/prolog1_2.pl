@@ -24,5 +24,5 @@ hijo(X,Y):- progenitor(Y,X), hombre(X).
 abuelo(X,Y):- progenitor(X,Z),progenitor(Z,Y), hombre(X).
 hermano(X,Y):- padre(Z,X),padre(Z,Y),madre(K,X),madre(K,Y),X\=Y, hombre(X).
 tio(X,Y):- hermano(X,Z),progenitor(Z,Y), hombre(X).
-descendiente(X,Y):- progenitor(Y,X).
 descendiente(X,Y):- progenitor(Y,Z),descendiente(X,Z).
+descendiente(X,Y):- progenitor(Y,X).

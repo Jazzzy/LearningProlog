@@ -50,8 +50,12 @@ X = pablo.
 ####?-pareja(X,juan).
 No dará salida pues el hombre esta a la derecha y no se hacen combinaciones (hombre,hombre).
 
-####?-pareja(luis,Y). 
+####?-pareja(luis,Y).
 Tampoco da salida pues no existe el nombre "Luis" entre los hechos introducidos.
+
+
+
+
 
 
 ##2.- Relaciones familiares
@@ -103,16 +107,19 @@ false
 ```Prolog
 X = alfonso ;
 X = juan.
-
 ```
 ####?- descendiente(X,javier).
 ```Prolog
 X = alfonso ;
 X = juan ;
+X = alicia ;
+X = pedro ;
+X = teresa.
 ```
 ####?- hijo(pedro,X).
 ```Prolog
-X = javier.
+X = javier ;
+X = maria.
 ```
 ####?- hermano(pedro,X).
 ```Prolog

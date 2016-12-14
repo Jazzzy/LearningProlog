@@ -103,7 +103,7 @@ false.
 
 Finalmente, en este apartado realizaremos una búsqueda en un espacio de estados. La representación definirá una sala con un mono que quiere obtener unos plátanos coldados del techo para lo cual tendrá que coger una silla, moverla hacia el centro de la sala, subirse a ella y coger los plátanos. En los siguientes apartados definiremos los estados y operadores entre ellos para solucionar el problema.
 
-###¿Qué situaciones (o estados) podríamos identificar?
+###1.- ¿Qué situaciones (o estados) podríamos identificar?
 
 Para representar los estados introduciremos unas reglas con la siguiente forma, siendo el estado inicial el mostrado al final de la siguiente porción de código:
 
@@ -115,14 +115,53 @@ Para representar los estados introduciremos unas reglas con la siguiente forma, 
 %         centro              centro
 
 % Este será el estado inicial:
-estado(puerta, suelo, ventana, arriba).
+% estado(puerta, suelo, ventana, arriba).
 
 % Y este el estado final que queremos alcanzar:
 % estado(centro,silla,centro,abajo).
 ```
 
+###2&3.- Implementación del programa
+
+La implementación final que hemos realizado tiene la siguiente forma, con una regla recursiva que va comprobando las transiciones posibles dado el estado en el que nos encontramos.
+
+```prolog
+estado_final(estado(centro, silla, centro, abajo)).
+
+% ---------TRANSICIONES---------
+transicion(bajar_platano,estado(centro,silla,centro,arriba),estado(centro,silla,centro,abajo)).
+transicion(subir_silla(X),estado(X,suelo,X,arriba),estado(X,silla,X,arriba)).
+transicion(mover_silla(X,Z),estado(X,suelo,X,arriba),estado(Z,suelo,Z,arriba)).
+transicion(mover_mono(X,Z),estado(X,suelo,Y,arriba),estado(Z,suelo,Y,arriba)).
 
 
+% ----------OPERADORES----------
+soluciona(EstadoIn,[]) :- estado_final(EstadoIn).
+soluciona(EstadoIN,[O|Os]) :- transicion(O,EstadoIN, EstadoOUT), soluciona(EstadoOUT,Os),!.
+
+```
+
+###4.- Cambie el orden de los operadores y ejecute de nuevo el programa. Compruebe que sigue funcionando bien.
+
+Hemos realizado varias pruebas cambiando el orden de las reglas siendo un ejemplo el siguiente código:
+
+```prolog
+estado_final(estado(centro, silla, centro, abajo)).
+
+% ---------TRANSICIONES---------
+transicion(mover_silla(X,Z),estado(X,suelo,X,arriba),estado(Z,suelo,Z,arriba)).
+transicion(subir_silla(X),estado(X,suelo,X,arriba),estado(X,silla,X,arriba)).
+transicion(mover_mono(X,Z),estado(X,suelo,Y,arriba),estado(Z,suelo,Y,arriba)).
+transicion(bajar_platano,estado(centro,silla,centro,arriba),estado(centro,silla,centro,abajo)).
+
+
+% ----------OPERADORES----------
+soluciona(EstadoIn,[]) :- estado_final(EstadoIn).
+soluciona(EstadoIN,[O|Os]) :- transicion(O,EstadoIN, EstadoOUT), soluciona(EstadoOUT,Os),!.
+
+```
+
+Al tener las reglas de forma general lo que ocurre es que entra en bucles infinitos con las reglas de mover el mono o mover la silla. Esto se debe a que los estados de las transiciones para subirse a la silla y para bajar los plátanos también son válidos para las transiciones de movimiento. Esto causa que si alguna regla de movimiento esté por encima de las reglas de subirse a la silla o coger plátanos entremos en un bucle constante de mover o el mono o la silla.
 
 
 
